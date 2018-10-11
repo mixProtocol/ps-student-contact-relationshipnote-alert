@@ -1,0 +1,22 @@
+<script language='javascript'>
+~[tlist_sql; 
+SELECT
+  MAX (CASE 
+    WHEN scd.RelationshipNote IS NULL THEN 0
+    WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
+    ELSE 1
+  END) AS hasRelNote
+FROM Students s
+LEFT OUTER JOIN StudentContactAssoc sca 
+  ON s.Dcid = sca.StudentDcid
+LEFT OUTER JOIN StudentContactDetail scd 
+  ON sca.StudentContactAssocId = scd.StudentContactAssocId
+WHERE s.Dcid = ~(rn)
+GROUP BY s.Dcid;]
+  var boolHasRelNote = ~(hasRelNote);
+[/tlist_sql]
+  if (boolHasRelNote > 0) {
+    var relNoteHref = "<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=~(frn)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert' /></a>";
+    $j(document).ready(function() { $j('form,[name=navigation]').children('h1').append(relNoteHref); });
+  }
+</script>
