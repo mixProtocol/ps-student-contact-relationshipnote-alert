@@ -16,8 +16,8 @@ CASE
     ELSE 1
   END) AS hasRelNote
 FROM Students s
-LEFT OUTER JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
-LEFT OUTER JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
+JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
+JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
 GROUP BY s.Dcid, s.ID) StudentRelNotes 
 
 JOIN CC cc ON StudentRelNotes.sId = cc.StudentID

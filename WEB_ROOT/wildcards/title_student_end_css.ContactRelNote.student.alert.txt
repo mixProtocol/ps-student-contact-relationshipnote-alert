@@ -7,8 +7,8 @@ SELECT
     ELSE 1
   END) AS hasRelNote
 FROM Students s
-LEFT OUTER JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
-LEFT OUTER JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
+JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
+JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
 WHERE s.Dcid = ~(rn)
 GROUP BY s.Dcid;]
   var boolHasRelNote = ~(hasRelNote);
