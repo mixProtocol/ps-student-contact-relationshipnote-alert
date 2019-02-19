@@ -1,7 +1,48 @@
 <div class='studentAlert' id='alert-relNote~(studentfrn)'>
-		<img class='alertImage' src='/images/img/Relationship_Note_Alert.png' />
-		<div class='alertContent'>
-			<p class='alertHeader'>~(studentname)</p>
-            <p>~(first_name) has a relationship note for one or more of their contacts<br />&nbsp;<br /></p>
-		</div>
+	<img class='alertImage' src='/images/img/Relationship_Note_Alert.png' />
+	<div class='alertContent'>
+	<p class='alertHeader'>~(studentname)</p>
+	<p>~(first_name) has a relationship note for one or more of their contacts<br /></p>
+~[tlist_sql;
+SELECT
+  REGEXP_REPLACE(TO_CHAR(p.FirstName || ' ' || p.MiddleName || ' ' || 
+                         p.LastName), '\s{2,}', ' ') AS contactFullName,
+  CASE 
+    WHEN p.IsActive = 0 THEN TO_CHAR(csrel.Code || ' (inactive)')
+    WHEN scd.IsActive = 0 THEN TO_CHAR(csrel.Code || '<br />inactive as of ' || TO_CHAR(scd.EndDate,'MM/DD/YYYY'))
+    ELSE TO_CHAR(csrel.Code)
+  END AS contactRelationshipType, 
+  scd.RelationshipNote AS scdNote
+
+FROM Students s
+
+JOIN StudentContactAssoc sca
+  ON s.Dcid = sca.StudentDcid
+
+JOIN Person p 
+  ON sca.PersonId = p.id
+
+JOIN StudentContactDetail scd
+  ON sca.StudentContactAssocId = scd.StudentContactAssocId
+
+LEFT OUTER JOIN CodeSet csrel 
+  ON scd.RelationshipTypeCodeSetId = csrel.CodeSetId
+
+WHERE scd.RelationshipNote LIKE '%'
+  AND TO_CHAR('001' || s.Dcid) = ~(studentfrn)
+
+;]<table width="100%" style="border: 1px solid lightgray">
+    <tr>
+        <td><strong>Contact Name</strong>:</td>
+        <td>~(contactFullName)</td>
+    </tr>
+    <tr>
+        <td><strong>Relationship</strong>:</td>
+        <td>~(contactRelationshipType)</td>
+    </tr>
+    <tr>
+        <td colspan="2"><strong>Relationship Note</strong>:&nbsp; ~(scdNote)</td>
+    </tr>
+</table>[/tlist_sql]
+	</div>
 </div>
