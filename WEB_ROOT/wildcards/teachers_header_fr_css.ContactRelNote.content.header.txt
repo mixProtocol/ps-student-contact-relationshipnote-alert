@@ -1,5 +1,7 @@
-<script language='javascript'>
-~[tlist_sql; 
+<script type="text/javascript">
+  var boolHasRelNote = 0;
+  var stu_frn = "~(frn)";
+/* ~[tlist_sql; 
 SELECT
   MAX (CASE 
     WHEN scd.RelationshipNote IS NULL THEN 0
@@ -10,11 +12,13 @@ FROM Students s
 JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
 JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
 WHERE s.Dcid = ~(rn)
-GROUP BY s.Dcid;]
-  var boolHasRelNote = ~(hasRelNote);
-[/tlist_sql]
+GROUP BY s.Dcid
+;] */
+  boolHasRelNote = ~(hasRelNote);
   if (boolHasRelNote > 0) {
-    var relNoteHref = "<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=~(frn)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert' /></a>";
+    var relNoteHref = "<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=" +
+                      stu_frn + "' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert' /></a>";
     $j(document).ready(function() { $j('form,[name=navigation]').children('h1').append(relNoteHref); });
   }
+/* [/tlist_sql] */
 </script>
