@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.content.footer.txt": "html",
+			"*.sqlReport.txt": "xml"
+		}
+	},
+}

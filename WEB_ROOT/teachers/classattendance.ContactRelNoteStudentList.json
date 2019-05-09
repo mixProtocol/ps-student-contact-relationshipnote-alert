@@ -1,0 +1,36 @@
+[
+  ~[tlist_sql;
+  SELECT
+    s.Dcid AS sDcid,
+    cc.ID AS ccId,
+    MAX (CASE 
+      WHEN scd.RelationshipNote IS NULL THEN 0
+      WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
+      ELSE 1
+    END) AS hasRelNote
+  FROM Students s
+
+  JOIN StudentContactAssoc sca
+    ON s.Dcid = sca.StudentDcid
+
+  JOIN StudentContactDetail scd
+    ON sca.StudentContactAssocId = scd.StudentContactAssocId
+   AND scd.RelationshipNote IS NOT NULL
+
+  JOIN CC cc
+    ON s.Id = cc.StudentId
+   AND cc.SchoolId = ~(curschoolid)
+   AND FLOOR(ABS(cc.TermID))/100 = ~(curyearid)
+   AND ( TO_CHAR(ABS(cc.SectionID)) LIKE TO_CHAR('~(gpv.sectionid)')
+        OR TO_CHAR(ABS(cc.SectionID)) LIKE '~(rn)'
+        OR 'multimeeting' LIKE LOWER('~(gpv.pagetype)') )
+  JOIN SectionTeacher st
+    ON ABS(cc.SectionID) = st.SectionID
+   AND st.TeacherID = '~[x:userid]'
+
+  WHERE s.SchoolID = ~(curschoolid)
+  GROUP BY s.Dcid, cc.Id
+  ]
+    {"sDcid":"~(sDcid)","ccId":"~(ccId)","hasRelNote":"~(hasRelNote)"},
+  [/tlist_sql]
+{}]
