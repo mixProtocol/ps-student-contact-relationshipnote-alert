@@ -1,51 +1,3 @@
-        <table border=0 cellpadding=2 cellspacing=0 width='100%' id='relnote_alerts' style='display:none;'>
-            <tr>
-                <td>~[ATT_RecordMeetingTeacherStudentList]
-        ~[tlist_sql;SELECT '<span ccid="ccid_[ccid]" class="relnotealert" dcid="' ||
-CAST(StudentRelNotes.sDcid AS VARCHAR(50)) || '"' ||
-CASE
-   WHEN StudentRelNotes.hasRelNote > 0 THEN ' hasRelNote="1"'
-   ELSE TO_CHAR('')
- END ||
-'></span>' FROM (SELECT
-  s.Dcid AS sDcid,
-  s.ID AS sID,
-  MAX (CASE 
-    WHEN scd.RelationshipNote IS NULL THEN 0
-    WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
-    ELSE 1
-  END) AS hasRelNote
-FROM Students s
-JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
-JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
-GROUP BY s.Dcid, s.ID) StudentRelNotes 
-
-JOIN CC cc ON StudentRelNotes.sId = cc.StudentID
-
-WHERE StudentRelNotes.hasRelNote >0
-  AND cc.id = '[ccid]';]
-        ~(studentid;)[/tlist_sql] 
-                </td>
-            </tr>
-        </table>
-
-<script type = 'text/javascript'>
-/*
-$j(document).ready(function()
-        {
-            var relnote_alerts = $j('.relnotealert');
-            relnote_alerts.each(function(index, elem) {
-                var relnote_alert = $j(elem);
-                var ps_alerts = $j('#' + relnote_alert.attr('ccid') + ' td:eq(1)');
-                if (relnote_alert.attr('hasRelNote') == '1')
-                {
-                    ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001" + relnote_alert.attr('dcid') + "' class='dialogM'><img style='vertical-align: text-bottom;' src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert' /></a>");
-                }
-            });
-        });
-*/
-</script>
-
 <script type = 'text/javascript'>
   $j(document).ready(function()
   {
@@ -66,7 +18,6 @@ $j(document).ready(function()
           "ATT_Source_Code" : "~(gpv.ATT_Source_Code)",
           "Period_ID" : "~(gpv.Period_ID)"
         },
-        // TODO: Rewrite the success function
         success: function(data) {
           for (i=0; i<data.length; i++){
             // look for the row w/ a ccid_XXXXXX that matches the ccid and
