@@ -30,6 +30,7 @@ WHERE StudentRelNotes.hasRelNote >0
         </table>
 
 <script type = 'text/javascript'>
+/*
 $j(document).ready(function()
         {
             var relnote_alerts = $j('.relnotealert');
@@ -42,4 +43,45 @@ $j(document).ready(function()
                 }
             });
         });
+*/
+</script>
+
+<script type = 'text/javascript'>
+  $j(document).ready(function()
+  {
+    $j(function() {
+      $j.ajax({
+        type: 'POST', 
+        dataType: 'json',
+        cache: 'false',
+        url: '/teachers/classattendance.ContactRelNoteStudentList.json', 
+        data: {
+          "sectionid" : "~(gpv.sectionid)",
+          "frn" : "~(frn)",
+          "rn" : "~(rn)",
+          "att_period" : "~(gpv.att_period)",
+          "att_date" : "~(gpv.att_date)",
+          "Att_Mode_Code" : "ATT_ModeMeeting",
+          "pagetype" : "~(gpv.pagetype)",
+          "ATT_Source_Code" : "~(gpv.ATT_Source_Code)",
+          "Period_ID" : "~(gpv.Period_ID)"
+        },
+        // TODO: Rewrite the success function
+        success: function(data) {
+          for (i=0; i<data.length; i++){
+            // look for the row w/ a ccid_XXXXXX that matches the ccid and
+            // replace the Daily TD values w/ the DailyAtt code and descr
+            var ps_alerts = $j('#ccid_' + data[i].ccId + ' td:eq(1)');
+            if (data[i].hasRelNote == '1')
+            {
+              ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001" + data[i].sDcid + "' class='dialogM'><img style='vertical-align: text-bottom;' src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert' /></a>");
+            }
+          }
+        },
+        error: function() {
+          // TODO: Write errorHandler
+        }
+      });
+    });
+  });
 </script>
