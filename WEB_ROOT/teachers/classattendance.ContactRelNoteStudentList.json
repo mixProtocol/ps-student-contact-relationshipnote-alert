@@ -1,4 +1,6 @@
 [
+  ~[if#sec.security.pagenone=/teachers/classattendance.html]
+  [else#sec]
   ~[tlist_sql;
   SELECT
     s.Dcid AS sDcid,
@@ -33,4 +35,5 @@
   ]
     {"sDcid":"~(sDcid)","ccId":"~(ccId)","hasRelNote":"~(hasRelNote)"},
   [/tlist_sql]
+  [/if#sec]
 {}]
