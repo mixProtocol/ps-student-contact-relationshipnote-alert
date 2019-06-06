@@ -1,5 +1,5 @@
 [
-  ~[if#sec.security.pagenone=/teachers/classattendance.html]
+  ~[if#secRelNote.security.pagenone=/teachers/classattendance.html]
   [else#sec]
   ~[tlist_sql;
   SELECT
@@ -21,7 +21,7 @@
 
   JOIN CC cc
     ON s.Id = cc.StudentId
-   AND cc.SchoolId = ~(curschoolid)
+   AND s.SchoolId = cc.SchoolId
    AND FLOOR(ABS(cc.TermID))/100 = ~(curyearid)
    AND ( TO_CHAR(ABS(cc.SectionID)) LIKE TO_CHAR('~(gpv.sectionid)')
         OR TO_CHAR(ABS(cc.SectionID)) LIKE '~(rn)'
@@ -35,5 +35,5 @@
   ]
     {"sDcid":"~(sDcid)","ccId":"~(ccId)","hasRelNote":"~(hasRelNote)"},
   [/tlist_sql]
-  [/if#sec]
+  [/if#secRelNote]
 {}]
