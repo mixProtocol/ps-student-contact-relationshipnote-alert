@@ -8,15 +8,15 @@
         cache: 'false',
         url: '/teachers/classattendance.ContactRelNoteStudentList.json', 
         data: {
-          "sectionid" : "~(gpv.sectionid)",
+          "sectionid" : "~(gpv.sectionid;json)",
           "frn" : "~(frn)",
           "rn" : "~(rn)",
-          "att_period" : "~(gpv.att_period)",
-          "att_date" : "~(gpv.att_date)",
+          "att_period" : "~(gpv.att_period;json)",
+          "att_date" : "~(gpv.att_date;json)",
           "Att_Mode_Code" : "ATT_ModeMeeting",
-          "pagetype" : "~(gpv.pagetype)",
-          "ATT_Source_Code" : "~(gpv.ATT_Source_Code)",
-          "Period_ID" : "~(gpv.Period_ID)"
+          "pagetype" : "~(gpv.pagetype;json)",
+          "ATT_Source_Code" : "~(gpv.ATT_Source_Code;json)",
+          "Period_ID" : "~(gpv.Period_ID;json)"
         },
         success: function(data) {
           for (i=0; i<data.length; i++){

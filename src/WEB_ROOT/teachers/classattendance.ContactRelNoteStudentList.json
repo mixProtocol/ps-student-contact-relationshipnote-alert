@@ -21,8 +21,8 @@
     ON s.Id = cc.StudentId
    AND s.SchoolId = cc.SchoolId
    AND FLOOR(ABS(cc.TermID)/100) = ~(curyearid)
-   AND ( TO_CHAR(ABS(cc.SectionID)) LIKE TO_CHAR('~(gpv.sectionid)')
-        OR 'multimeeting' LIKE LOWER('~(gpv.pagetype)') )
+   AND ( TO_CHAR(ABS(cc.SectionID)) LIKE TO_CHAR('~(gpv.sectionid;num)')
+        OR 'multimeeting' LIKE LOWER('~(gpv.pagetype;sqlText)') )
   JOIN SectionTeacher st
     ON ABS(cc.SectionID) = st.SectionID
    AND st.TeacherID = '~[x:userid]'
