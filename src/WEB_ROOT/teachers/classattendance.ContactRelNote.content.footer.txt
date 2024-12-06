@@ -1,7 +1,7 @@
 <script type='text/javascript'>
 (function ContactRelNoteAlertPlugin() {
-  $j(document).ready(function () {
-    $j(function () {
+  
+
       $j.ajax({
         type: 'POST',
         dataType: 'json',
@@ -13,6 +13,7 @@
           "Period_ID": "~(gpv.Period_ID;json)"
         },
         success: function (data) {
+         $j(document).ready(function () {
           for (i = 0; i < data.length; i++) {
             // look for the row w/ a ccid_XXXXXX that matches the ccid and
             // replace the Daily TD values w/ the DailyAtt code and descr
@@ -21,12 +22,13 @@
               ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001" + data[i].sDcid + "' class='dialogM'><img style='vertical-align: text-bottom;' src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert'  style='margin-right:2px;' /></a>");
             }
           }
+         });
         },
         error: function () {
           // TODO: Write errorHandler
         }
       });
-    });
-  });
+
+
 })();
 </script>
