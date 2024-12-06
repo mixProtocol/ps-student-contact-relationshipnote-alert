@@ -3,7 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		description="Contact RelationshipNote Alerts"
 		name="Contact RelationshipNote Alerts"
-		version="20190328.01"
+		version="20241206.01"
 		xsi:schemaLocation="http://plugin.powerschool.pearson.com plugin.xsd">
 		
 	<publisher name="George Skuse">
