@@ -1,13 +1,16 @@
 [
   ~[tlist_sql;
   SELECT
-    s.Dcid AS sDcid,
-    cc.ID AS ccId,
-    MAX (CASE 
-      WHEN scd.RelationshipNote IS NULL THEN 0
-      WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
-      ELSE 1
-    END) AS hasRelNote
+    JSON_OBJECT (
+      'sDcid' VALUE TO_CHAR(s.Dcid),
+      'ccId' VALUE TO_CHAR(cc.ID),
+      'hasRelNote' VALUE TO_CHAR(MAX (CASE 
+        WHEN scd.RelationshipNote IS NULL THEN 0
+        WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
+        ELSE 1
+      END))
+    )
+
   FROM Students s
 
   JOIN StudentContactAssoc sca
@@ -23,13 +26,17 @@
    AND FLOOR(ABS(cc.TermID)/100) = ~(curyearid)
    AND ( TO_CHAR(ABS(cc.SectionID)) LIKE TO_CHAR('~(gpv.sectionid;num)')
         OR 'multimeeting' LIKE LOWER('~(gpv.pagetype;sqlText)') )
+        
   JOIN SectionTeacher st
     ON ABS(cc.SectionID) = st.SectionID
    AND st.TeacherID = '~[x:userid]'
 
   WHERE s.SchoolID = ~(curschoolid)
+    AND scd.RelationshipNote IS NOT NULL
+    AND TRIM(scd.RelationshipNote) MOT LIKE ''
+
   GROUP BY s.Dcid, cc.Id
   ]
-    {"sDcid":"~(sDcid)","ccId":"~(ccId)","hasRelNote":"~(hasRelNote)"},
-  [/tlist_sql]
+  ~(jsonObj),
+[/tlist_sql]
 {}]
