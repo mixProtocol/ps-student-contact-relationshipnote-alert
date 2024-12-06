@@ -1,23 +1,17 @@
-<script type="text/javascript">
-  var boolHasRelNote = 0;
-  var stu_frn = "~(frn)";
-/* ~[tlist_sql; 
+~[tlist_sql; 
 SELECT
-  MAX (CASE 
-    WHEN scd.RelationshipNote IS NULL THEN 0
-    WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
-    ELSE 1
-  END) AS hasRelNote
+  s.Dcid AS stu_dcid
+
 FROM Students s
+
 JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
 JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
+
 WHERE s.Dcid = ~(rn)
+  AND scd.RelationshipNote IS NOT NULL
+  AND TRIM(scd.RelationshipNote) MOT LIKE ''
+
 GROUP BY s.Dcid
-;] */
-  boolHasRelNote = ~(hasRelNote);
-  if (boolHasRelNote > 0) {
-    document.write("<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/admin/alerts/RelationshipNote_Alert.html?frn=" +
-                   stu_frn + "' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert' /></a>");
-  }
-/* [/tlist_sql] */
-</script>
+;]
+<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/admin/alerts/RelationshipNote_Alert.html?frn=001~(stu_dcid)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert'  style='margin-right:2px;' /></a>
+[/tlist_sql]
