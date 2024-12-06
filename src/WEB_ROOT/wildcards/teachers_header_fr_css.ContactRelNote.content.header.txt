@@ -1,24 +1,35 @@
-<script type="text/javascript">
-  var boolHasRelNote = 0;
-  var stu_frn = "~(frn)";
-/* ~[tlist_sql; 
+~[tlist_sql; 
 SELECT
-  MAX (CASE 
-    WHEN scd.RelationshipNote IS NULL THEN 0
-    WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
-    ELSE 1
-  END) AS hasRelNote
+  s.Dcid AS stu_dcid
+
 FROM Students s
+
 JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
 JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
+
 WHERE s.Dcid = ~(rn)
+  AND scd.RelationshipNote IS NOT NULL
+  AND TRIM(scd.RelationshipNote) MOT LIKE ''
+
 GROUP BY s.Dcid
-;] */
-  boolHasRelNote = ~(hasRelNote);
-  if (boolHasRelNote > 0) {
-    var relNoteHref = "<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=" +
-                      stu_frn + "' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert' /></a>";
-    $j(document).ready(function() { $j('form,[name=navigation]').children('h1').append(relNoteHref); });
-  }
-/* [/tlist_sql] */
+;]
+<script type="text/javascript">
+  /* 
+    The primary method to add an alert to page within /teachers/studentpages/ seems to be through
+      /wildcards/teachers_title_student_end_css.PLUGINNAME.student.alert.txt
+      However, some older pages don't include that wildcard.
+
+      So, test if a div with an id of "page-heading-alerts" (added by the new wildcard exists).
+      If that id doesn't exist and the alert icon hasn't already been added, then add it using
+      the "old" method.
+  */
+  $j(document).ready(function () {
+
+    if ($j('#page-heading-alerts,a.dialogM[id^="contactRelNote_alert_"').length === 0) {
+      const strContRelNoteAlertLink = "<a title='Contact Relationship Note Alert' id='contactRelNote_alert_~(stu_dcid)' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001~(stu_dcid)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert'  style='margin-right:2px;' /></a>";
+
+      $j('form,[name=navigation]').children('h1').append(strContRelNoteAlertLink);
+    }
+  });
 </script>
+[/tlist_sql]
