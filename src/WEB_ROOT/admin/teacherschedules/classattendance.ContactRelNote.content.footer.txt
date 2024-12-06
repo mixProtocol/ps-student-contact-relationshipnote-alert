@@ -1,43 +1,30 @@
-        <table border=0 cellpadding=2 cellspacing=0 width='100%' id='relnote_alerts' style='display:none;'>
-            <tr>
-                <td>~[ATT_RecordMeetingTeacherStudentList]
-        ~[tlist_sql;SELECT '<span ccid="ccid_[ccid]" class="relnotealert" dcid="' ||
-CAST(StudentRelNotes.sDcid AS VARCHAR(50)) || '"' ||
-CASE
-   WHEN StudentRelNotes.hasRelNote > 0 THEN ' hasRelNote="1"'
-   ELSE TO_CHAR('')
- END ||
-'></span>' FROM (SELECT
-  s.Dcid AS sDcid,
-  s.ID AS sID,
-  MAX (CASE 
-    WHEN scd.RelationshipNote IS NULL THEN 0
-    WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
-    ELSE 1
-  END) AS hasRelNote
-FROM Students s
-JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
-JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
-GROUP BY s.Dcid, s.ID) StudentRelNotes 
-
-JOIN CC cc ON StudentRelNotes.sId = cc.StudentID
-
-WHERE StudentRelNotes.hasRelNote >0
-  AND cc.id = '[ccid]';]
-        ~(studentid;)[/tlist_sql] 
-                </td>
-            </tr>
-        </table>
-
 <script type='text/javascript'>
   $j(document).ready(function () {
-    var relnote_alerts = $j('.relnotealert');
-    relnote_alerts.each(function (index, elem) {
-      var relnote_alert = $j(elem);
-      var ps_alerts = $j('#' + relnote_alert.attr('ccid') + ' td:eq(1)');
-      if (relnote_alert.attr('hasRelNote') == '1') {
-        ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/admin/alerts/RelationshipNote_Alert.html?frn=001" + relnote_alert.attr('dcid') + "' class='dialogM'><img style='vertical-align: text-bottom;' src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert' style='margin-right:2px;' /></a>");
-      }
+    $j(function () {
+      $j.ajax({
+        type: 'POST',
+        dataType: 'json',
+        cache: 'false',
+        url: '/admin/teacherschedules/classattendance.ContactRelNoteStudentList.json',
+        data: {
+          "sectionid": "~(gpv.sectionid;json)",
+          "pagetype": "~(gpv.pagetype;json)",
+          "Period_ID": "~(gpv.Period_ID;json)"
+        },
+        success: function (data) {
+          for (i = 0; i < data.length; i++) {
+            // look for the row w/ a ccid_XXXXXX that matches the ccid and
+            // replace the Daily TD values w/ the DailyAtt code and descr
+            var ps_alerts = $j('#ccid_' + data[i].ccId + ' td:eq(1)');
+            if (data[i].hasRelNote == '1') {
+              ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/admin/alerts/RelationshipNote_Alert.html?frn=001" + data[i].sDcid + "' class='dialogM'><img style='vertical-align: text-bottom;' src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert'  style='margin-right:2px;' /></a>");
+            }
+          }
+        },
+        error: function () {
+          // TODO: Write errorHandler
+        }
+      });
     });
   });
 </script>
