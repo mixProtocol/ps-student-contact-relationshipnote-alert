@@ -1,0 +1,17 @@
+~[tlist_sql; 
+SELECT
+  s.Dcid AS stu_dcid
+
+FROM Students s
+
+JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
+JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
+
+WHERE s.Dcid = ~(rn)
+  AND scd.RelationshipNote IS NOT NULL
+  AND TRIM(scd.RelationshipNote) MOT LIKE ''
+
+GROUP BY s.Dcid
+;]
+<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001~(stu_dcid)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert'  style='margin-right:2px;' /></a>
+[/tlist_sql]
