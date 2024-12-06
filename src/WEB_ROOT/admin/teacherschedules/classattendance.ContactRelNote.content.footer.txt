@@ -38,7 +38,7 @@ $j(document).ready(function()
                 var ps_alerts = $j('#' + relnote_alert.attr('ccid') + ' td:eq(1)');
                 if (relnote_alert.attr('hasRelNote') == '1')
                 {
-                    ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/admin/alerts/RelationshipNote_Alert.html?frn=001" + relnote_alert.attr('dcid') + "' class='dialogM'><img style='vertical-align: text-bottom;' src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert' /></a>");
+                    ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/admin/alerts/RelationshipNote_Alert.html?frn=001" + relnote_alert.attr('dcid') + "' class='dialogM'><img style='vertical-align: text-bottom;' src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert' style='margin-right:2px;' /></a>");
                 }
             });
         });
