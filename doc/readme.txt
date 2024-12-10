@@ -1,6 +1,6 @@
 Student Contact RelationshipNote Alerts Plugin
 Description:
-This plugin adds a student alert icon to indicate that one or more of the a student's contacts (PS12) has a relationship note.
+This plugin adds a student alert icon to indicate that one or more of the a student's contacts (PS12+) has a relationship note.
 
 The alert icon is displayed next to the stock alerts in the Admin Portal student screens, the PowerTeacher Portal individual student view, and the class attendance pages on the Admin and Teacher Portals.
 
@@ -8,10 +8,12 @@ The information for each contact that has a note, including the text of the note
 
 RelationshipNotes that are associated with Contacts that are inactive, as well as Relationships with an endDate in the past, are included in the results with a note that they're inactive.
 
-Release History:
+New: Version 1.3 / 20241210.01 fixes a critical issue with PSv24.11 that caused the alert to not show on teachers' attendance rosters. All users should upgrade to the latest version.
 
-1.2 / 20190328_01 - Increased width of alert dialog; Cleaned up code.  
-1.1 / 20190219_01  - Added text of relationship note(s) to alert dialog box
+Release History:
+1.3 / 20241210.01 - PSv24.11 compatibility; performance improvements
+1.2 / 20190328.01 - Increased width of alert dialog; Cleaned up code.  
+1.1 / 20190219.01 - Added text of relationship note(s) to alert dialog box
 1.0 - Initial Release
 
 Installation:
