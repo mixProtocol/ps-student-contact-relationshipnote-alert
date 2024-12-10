@@ -16,6 +16,10 @@ Release History:
 1.1 / 20190219.01 - Added text of relationship note(s) to alert dialog box
 1.0 - Initial Release
 
+Links:
+PowerSource: https://support.powerschool.com/exchange/view.action?download.id=953
+GitHub: https://github.com/mixProtocol/ps-student-contact-relationshipnote-alert
+
 Installation:
 Install in System > System Settings > Plugin Management Configuration
 
