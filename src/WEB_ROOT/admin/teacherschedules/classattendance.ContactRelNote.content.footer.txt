@@ -1,5 +1,13 @@
 <script type='text/javascript'>
   (function ContactRelNoteAlertPlugin() {
+
+    // 'scrape' ccids from IDs within the attendance table
+    const ccids = $j('#attendance-table .studentrow[id^="ccid_"]')
+      // convert to IDs to integers (after removing the first 5 characters: 'ccid_') 
+      .map(function () { return parseInt(this.id.toString().slice(5, 99), 10); })
+      // join integers into a comma-seperated list (no quotes)
+      .get().join(',');
+
     $j.ajax({
       type: 'POST',
       dataType: 'json',
@@ -8,7 +16,8 @@
       data: {
         "sectionid": "~(gpv.sectionid;json)",
         "pagetype": "~(gpv.pagetype;json)",
-        "Period_ID": "~(gpv.Period_ID;json)"
+        "Period_ID": "~(gpv.Period_ID;json)",
+        "CCIDs": ccids.toString()
       },
       success: function (data) {
         $j(document).ready(function () {
