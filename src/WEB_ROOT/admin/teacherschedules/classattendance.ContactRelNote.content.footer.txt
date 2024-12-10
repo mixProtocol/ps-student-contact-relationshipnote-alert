@@ -12,7 +12,6 @@
       .get().join(',');
     [/if#PgTypeMultMtg]
 
-
     $j.ajax({
       type: 'POST',
       dataType: 'json',
