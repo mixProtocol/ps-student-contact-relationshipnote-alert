@@ -6,11 +6,15 @@
     JSON_OBJECT (
       'sDcid' VALUE TO_CHAR(s.Dcid),
       'ccId' VALUE TO_CHAR(cc.ID),
-      'hasRelNote' VALUE TO_CHAR(MAX (CASE 
-        WHEN scd.RelationshipNote IS NULL THEN 0
-        WHEN TRIM(scd.RelationshipNote) LIKE '' THEN 0
-        ELSE 1
-      END))
+      'hasRelNote' VALUE TO_CHAR (
+        MAX (
+          CASE 
+            WHEN scd.RelationshipNote IS NULL THEN 0
+            WHEN LENGTH(TRIM(scd.RelationshipNote)) < 1 THEN 0
+            ELSE 1
+          END
+        )
+      )
     )
 
   FROM Students s
@@ -27,9 +31,7 @@
   JOIN StudentContactDetail scd
     ON sca.StudentContactAssocId = scd.StudentContactAssocId
    AND scd.RelationshipNote IS NOT NULL
-
-  WHERE scd.RelationshipNote IS NOT NULL
-    AND TRIM(scd.RelationshipNote) MOT LIKE ''
+   AND LENGTH(TRIM(scd.RelationshipNote)) > 0
 
   GROUP BY s.Dcid, cc.Id
   ]
