@@ -1,7 +1,7 @@
 <div class='studentAlert' id='alert-relNote~(studentfrn)' style="width:540px;">
-	<img class='alertImage' src='/images/img/Relationship_Note_Alert.png' />
-	<div class='alertContent'>
-	  <p class='alertHeader'>~(studentname)</p>
+  <img class='alertImage' src='/images/img/Relationship_Note_Alert.png' />
+  <div class='alertContent'>
+    <p class='alertHeader'>~(studentname)</p>
     <p>~(first_name) has a relationship note for one or more of their contacts<br /></p>
     <!-- ~[tlist_sql;
 SELECT
@@ -31,7 +31,7 @@ LEFT OUTER JOIN CodeSet csrel
 WHERE scd.RelationshipNote LIKE '%'
   AND TO_CHAR('001' || s.Dcid) = ~(studentfrn)
 
-    ;] --> 
+    ;] -->
     <table width="100%" style="border: 1px solid lightgray">
       <tr>
         <td><strong>Contact Name</strong>:</td>
@@ -45,5 +45,5 @@ WHERE scd.RelationshipNote LIKE '%'
         <td colspan="2"><strong>Relationship Note</strong>:&nbsp; ~(scdNote)</td>
       </tr>
     </table><!-- [/tlist_sql] -->
-	</div>
+  </div>
 </div>
