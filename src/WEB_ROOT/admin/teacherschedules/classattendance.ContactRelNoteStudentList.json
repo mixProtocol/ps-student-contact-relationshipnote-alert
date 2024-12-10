@@ -15,9 +15,9 @@
    AND s.SchoolId = cc.SchoolId
    AND FLOOR(ABS(cc.TermID)/100) = ~(curyearid)
    AND ( ABS(cc.SectionID) = (~(gpv.sectionid;num) - 0)
-   ~[if#PgTypeMultMtg.gpv.pagetype=MultiMeeting]
+    ~[if#PgTypeMultMtg.gpv.pagetype=MultiMeeting]
          OR cc.ID in (~(gpv.CCIDs;sqlText))
-   [/if#PgTypeMultMtg]
+    [/if#PgTypeMultMtg]
        )
   
   JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
