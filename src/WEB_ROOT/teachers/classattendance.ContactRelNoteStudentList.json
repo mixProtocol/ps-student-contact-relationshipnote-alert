@@ -1,7 +1,6 @@
 [
   ~[tlist_sql;
   SELECT
-  SELECT
     JSON_OBJECT (
       'sDcid' VALUE TO_CHAR(s.Dcid),
       'ccId' VALUE TO_CHAR(cc.ID),
