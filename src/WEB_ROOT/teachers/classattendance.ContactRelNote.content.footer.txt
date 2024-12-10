@@ -29,7 +29,7 @@
             // look for the row w/ a ccid_XXXXXX that matches the ccid and
             // replace the Daily TD values w/ the DailyAtt code and descr
             const ps_alerts = $j('#ccid_' + data[i].ccId + ' td:eq(1)');
-            ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001" + data[i].sDcid + "' class='dialogM'><img style='vertical-align: text-bottom;' src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert'  style='margin-right:2px;' /></a>");
+            ps_alerts.append("<a title='Relationship Note Alert' id='relnote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001" + data[i].sDcid + "' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Relationship Note Alert'  style='vertical-align: text-bottom; margin-right:2px;' /></a>");
           }
         });
       },

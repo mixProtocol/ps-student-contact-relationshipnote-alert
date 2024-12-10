@@ -28,7 +28,7 @@ GROUP BY s.Dcid
   $j(document).ready(function () {
 
     if ($j('#page-heading-alerts,a.dialogM[id^="contactRelNote_alert_"').length === 0) {
-      const strContRelNoteAlertLink = "<a title='Contact Relationship Note Alert' id='contactRelNote_alert_~(stu_dcid)' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001~(stu_dcid)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert'  style='margin-right:2px;' /></a>";
+      const strContRelNoteAlertLink = "<a title='Contact Relationship Note Alert' id='contactRelNote_alert_~(stu_dcid)' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001~(stu_dcid)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert'  style='vertical-align: text-bottom; margin-right:2px;' /></a>";
 
       $j('form,[name=navigation]').children('h1').append(strContRelNoteAlertLink);
     }
