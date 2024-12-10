@@ -15,5 +15,5 @@ WHERE s.Dcid = ~(rn)
 
 GROUP BY s.Dcid
 ;]
-<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001~(stu_dcid)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert'  style='vertical-align: text-bottom; margin-right:2px;' /></a>
+<a title='Contact Relationship Note Alert' id='contactRelNote_alert' href='/teachers/alerts/RelationshipNote_Alert.html?frn=001~(stu_dcid)' class='dialogM'><img src='/images/img/Relationship_Note_Alert.png' alt='Contact Relationship Note Alert'  style='margin-right:2px;' /></a>
 [/tlist_sql]
