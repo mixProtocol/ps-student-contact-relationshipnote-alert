@@ -5,11 +5,13 @@ SELECT
 FROM Students s
 
 JOIN StudentContactAssoc sca ON s.Dcid = sca.StudentDcid
-JOIN StudentContactDetail scd ON sca.StudentContactAssocId = scd.StudentContactAssocId
+
+JOIN StudentContactDetail scd
+  ON sca.StudentContactAssocId = scd.StudentContactAssocId
+ AND scd.RelationshipNote IS NOT NULL
+ AND LENGTH(TRIM(scd.RelationshipNote)) > 0
 
 WHERE s.Dcid = ~(rn)
-  AND scd.RelationshipNote IS NOT NULL
-  AND TRIM(scd.RelationshipNote) MOT LIKE ''
 
 GROUP BY s.Dcid
 ;]
