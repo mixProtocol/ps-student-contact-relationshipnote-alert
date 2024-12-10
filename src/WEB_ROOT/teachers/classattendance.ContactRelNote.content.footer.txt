@@ -1,7 +1,7 @@
 <script type='text/javascript'>
   (function ContactRelNoteAlertPlugin() {
 
-    let ccids = -1
+    let ccids = -1;
 
     ~[if#PgTypeMultMtg.gpv.pagetype=MultiMeeting]
     // 'scrape' ccids from IDs within the attendance table
