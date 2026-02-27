@@ -26,7 +26,17 @@
     ON sca.StudentContactAssocId = scd.StudentContactAssocId
    AND scd.RelationshipNote IS NOT NULL
    AND LENGTH(TRIM(scd.RelationshipNote)) > 0
+~[if#filterEndDate.pref.relNoteFilterByEndDate=1] 
 
+[/if#filterEndDate] 
+   
+~[if#fexclInactive.pref.relNoteExcludeInactive=1] 
+  JOIN Person p 
+    ON sca.PersonId = p.id
+   AND p.IsActive != 0
+[/if#fexclInactive] 
+
+  
   GROUP BY s.Dcid, cc.Id
   ]
   ~(jsonObj),
