@@ -27,7 +27,7 @@
    AND scd.RelationshipNote IS NOT NULL
    AND LENGTH(TRIM(scd.RelationshipNote)) > 0
 ~[if#filterEndDate.pref.relNoteFilterByEndDate=1] 
-
+   AND (scd.EndDate IS NULL OR scd.EndDate >= TODAY)
 [/if#filterEndDate] 
    
 ~[if#fexclInactive.pref.relNoteExcludeInactive=1] 
